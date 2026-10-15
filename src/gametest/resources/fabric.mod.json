@@ -1,0 +1,15 @@
+{
+	"schemaVersion": 1,
+	"id": "render-toggle-test",
+	"version": "1.0.0",
+	"name": "Render Toggle Tests",
+	"environment": "client",
+	"entrypoints": {
+		"fabric-client-gametest": [
+			"com.example.rendertoggle.test.RenderToggleClientGameTest"
+		]
+	},
+	"depends": {
+		"render-toggle": "*"
+	}
+}

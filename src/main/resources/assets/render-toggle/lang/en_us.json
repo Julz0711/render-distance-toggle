@@ -1,0 +1,16 @@
+{
+	"key.render-toggle.toggle": "Toggle Shaders",
+	"key.category.render-toggle.general": "Render Toggle",
+
+	"message.render-toggle.status": "Shaders: %s | Render Distance: %s",
+	"message.render-toggle.status.simulated": "Shaders (Simulated): %s | Render Distance: %s",
+
+	"render-toggle.config.title": "Render Toggle Settings",
+	"render-toggle.config.irisMissing": "Iris is not installed - shaders are only simulated",
+	"render-toggle.config.shaderOnDistance": "Shaders On",
+	"render-toggle.config.shaderOnDistance.tooltip": "Render distance used while a shader pack is active.",
+	"render-toggle.config.shaderOffDistance": "Shaders Off",
+	"render-toggle.config.shaderOffDistance.tooltip": "Render distance used while shaders are off.",
+	"render-toggle.config.showMessage": "Show Status Message",
+	"render-toggle.config.showMessage.tooltip": "Show the shader state and render distance above the hotbar when they change."
+}
