@@ -1,58 +1,28 @@
-# Render Toggle Mod
+# Render Toggle — Minecraft 26.3
 
-A Minecraft Fabric mod for 26.3 that switches your render distance depending on whether shaders are on.
+Keep Minecraft's render distance in sync with your shaders. Use a shorter distance with shaders enabled and a longer one when they are off.
 
 ## Features
 
-- **Follows Iris**: With [Iris](https://irisshaders.net/) installed, the mod reads whether a shader pack is
-  actually in use. Toggling shaders any way you like (Iris's key, the Iris menu, or this mod's key) switches
-  to the matching render distance.
-- **Toggle Key**: `K` toggles shaders (rebindable under Controls → Key Binds → Render Toggle).
-  Iris also uses `K` by default. When both share a key, Iris does the toggling and this mod only adjusts
-  the render distance, so the two never cancel each other out.
-- **Render Distance**:
-  - Shaders on: 24 chunks
-  - Shaders off: 32 chunks
-  - Values are clamped to what the game allows (2 to 32 in vanilla).
-- **Settings screen**: Open it from [Mod Menu](https://modrinth.com/mod/modmenu) (Mods → Render Toggle → config button).
-- **Without Iris**: The key flips a simulated shader state and only the render distance changes.
+- **Follows Iris:** changing shader state through Iris's key, its menu, or this mod updates the render distance.
+- **One toggle key:** **K** toggles shaders. If Iris shares the same binding, Iris handles the press so the two mods do not toggle twice.
+- **Configurable distances:** defaults are **24 chunks with shaders** and **32 without**; values are clamped to the game's allowed range.
+- **Settings screen:** adjust options through Mod Menu.
+- **Works without Iris:** the key flips a simulated state and switches render distance.
 
-## Installation
+This repository targets **Minecraft 26.3**. For the older 1.21.10 implementation, see [toggleRenderDistance](https://github.com/Julz0711/toggleRenderDistance).
 
-1.  Install [Fabric Loader](https://fabricmc.net/use/installer/) 0.19.5 or newer for Minecraft 26.3.
-2.  Install [Fabric API](https://modrinth.com/mod/fabric-api) for 26.3.
-3.  Download the mod jar and place it in your `mods` folder.
-4.  (Optional) Install [Iris Shaders](https://irisshaders.net/) for real shader support and
-    [Mod Menu](https://modrinth.com/mod/modmenu) for the settings screen.
+## Install
 
-## Building from Source
+1. Install Fabric Loader **0.19.5+** for Minecraft **26.3** and the matching Fabric API.
+2. Put the built mod JAR in your `mods/` folder.
+3. Optionally install Iris for actual shader control and Mod Menu for the settings screen. Install Iris's own dependencies as required.
 
-This project uses Gradle via the included wrapper.
+Minecraft 26.3 requires **Java 25**. Change the key under **Controls → Key Binds → Render Toggle**.
 
-### Prerequisites
+## Configure
 
-- Any JDK 17+ to start the wrapper. Minecraft 26.3 requires Java 25; Gradle downloads
-  it automatically (see `gradle/gradle-daemon-jvm.properties` and the `toolchain` block in `build.gradle`).
-
-### Build Command
-
-```bash
-./gradlew build
-```
-
-The output jar will be in `build/libs/`.
-
-### Running and Testing
-
-```bash
-./gradlew runClient                 # dev client with Mod Menu
-./gradlew runClient -PwithIris      # ...plus Iris and Sodium
-./gradlew runClientGameTest         # automated in-game tests (src/gametest)
-```
-
-## Configuration
-
-Use the settings screen in Mod Menu, or edit `.minecraft/config/render-toggle.json`:
+Open **Mods → Render Toggle → config**, or edit `.minecraft/config/render-toggle.json`:
 
 ```json
 {
@@ -62,4 +32,31 @@ Use the settings screen in Mod Menu, or edit `.minecraft/config/render-toggle.js
 }
 ```
 
-`showMessage` controls the status line shown above the hotbar when the render distance changes.
+`showMessage` controls the status message above the hotbar.
+
+## Build and test
+
+The included Gradle wrapper and Java toolchain configuration can download Java 25. A JDK 17+ can bootstrap the wrapper.
+
+```sh
+git clone https://github.com/Julz0711/render-distance-toggle.git
+cd render-distance-toggle
+./gradlew build
+```
+
+The playable JAR is written to `build/libs/`. On Windows, use `gradlew.bat`.
+
+| Command | Purpose |
+| --- | --- |
+| `./gradlew runClient` | Launch the development client with Mod Menu. |
+| `./gradlew runClient -PwithIris` | Include Iris and Sodium in the development client. |
+| `./gradlew runClientGameTest` | Run automated client game tests; requires a graphical display. |
+
+## Code map
+
+| Path | Responsibility |
+| --- | --- |
+| [client/](src/main/java/com/example/rendertoggle/client/) | Key handling, shader-state tracking, distance updates, and settings UI. |
+| [compat/](src/main/java/com/example/rendertoggle/compat/) | Iris, shader-control, and Mod Menu integrations. |
+| [config/](src/main/java/com/example/rendertoggle/config/) | Persisted configuration. |
+| [src/gametest/](src/gametest/) | Minecraft client tests. |
